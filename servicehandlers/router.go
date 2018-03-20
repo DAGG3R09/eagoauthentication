@@ -5,21 +5,25 @@ import (
 	"net/http"
 )
 
-type HttpServiceHandler interface {
-	Get(*http.Request) string
-	Put(*http.Request) string
-	Post(*http.Request) string
+// HttpServiceHandler : Restful Http Handler
+type HTTPServiceHandler interface {
+	Get(*http.Request) (string, int)
+	Put(*http.Request) (string, int)
+	Post(*http.Request) (string, int)
 }
 
-func methodRouter(p HttpServiceHandler, w http.ResponseWriter, r *http.Request) {
+func methodRouter(p HTTPServiceHandler, w http.ResponseWriter, r *http.Request) {
 
 	var response string
+	var status int
 	if r.Method == "GET" {
-		response = p.Get(r)
+		response, status = p.Get(r)
 	} else if r.Method == "PUT" {
-		response = p.Put(r)
+		response, status = p.Put(r)
 	} else if r.Method == "POST" {
-		response = p.Post(r)
+		response, status = p.Post(r)
 	}
+	w.WriteHeader(status)
 	fmt.Fprintf(w, response)
+
 }

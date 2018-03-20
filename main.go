@@ -13,7 +13,20 @@ func main() {
 
 	http.Handle("/ping", p)
 	http.Handle("/authenticate", a)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 
-	x := http.ListenAndServe(":8080", nil)
-	log.Fatal(x)
+	// users := dao.GetAllUsers()
+	// for _, u := range users {
+	// 	fmt.Println(u)
+	// }
+
+	// user := dao.GetUserByEmail("alim@gmail.com")
+	// fmt.Println(user)
+
+	// fmt.Println(dao.CreateSession(user.ID))
+
+	// fmt.Println(dao.AuthenticateSession("4ad48350-1dc9-4ac0-82ac-2e99709800de"))
+
+	// fmt.Println(dao.CheckPassword("pass", "alim@gmail.com"))
+
 }
